@@ -1,0 +1,52 @@
+{
+    "language": "Português",
+    "menu": {
+        "menu": "Menu (F2)",
+        "register": "Reg. Item (F3)",
+        "client": "Cliente/CPF (F4)",
+        "cancel": "Cancel. Item (F6)",
+        "budget": "Orçamento (F7)",
+        "discount": "Desconto (F8)",
+        "search": "Pesq. Produto (F9)"
+    },
+    "calculator": {
+        "Less": "Menos",
+        "Sum": "Soma",
+        "One": "Um",
+        "Two": "dois",
+        "Tree": "Três",
+        "Four": "Quatro",
+        "Five": "Cinco",
+        "Six": "Seis",
+        "Seven": "Seven",
+        "Eight": "Oito",
+        "Nive": "Nove",
+        "Money": "Dinheiro",
+        "Currency": "Moeda"
+    },
+    "Word": {
+        "Compra": "Buy",
+        "Venda": "Sell",
+        "Product": "Produto",
+        "Promotion": "Promoção",
+        "Discount": "Desconto",
+        "In cash": "A vista",
+        "Forward": "A prazo",
+        "Inventory": "Estoque",
+        "Delivery": "Entrega",
+        "shipping": "Frete",
+        "Free": "Grátis",
+        "Yes": "Sim",
+        "No": "Não",
+        "Value": "Valor",
+        "Unity":" Unidade"
+    },
+    "People": {
+        "clerk": "Atendente",
+        "Manager": "Gerente",
+        "Client": "Cliente",
+        "Customer": "Freguês",
+        "Funcionario": "Employee"
+    }
+}
+  
