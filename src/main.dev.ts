@@ -85,7 +85,8 @@ const createWindow = async () => {
   });
 
   //mainWindow.loadURL(`file://${__dirname}/index.html`);
-  mainWindow.loadURL('http://frontpdvmobly-mobly.vercel.app');
+ // mainWindow.loadURL('http://frontpdvmobly-mobly.vercel.app');
+ mainWindow.loadURL('http://localhost:3000/#/');
   mainWindow.maximize();
   mainWindow.show();
   // @TODO: Use 'ready-to-show' event
@@ -102,6 +103,8 @@ const createWindow = async () => {
       mainWindow.focus();
     }
   });
+
+  const server = require('./api/index');
 
   mainWindow.on('closed', () => {
     mainWindow = null;
