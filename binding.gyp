@@ -13,7 +13,8 @@
           {
             "defines": [
               "_HAS_EXCEPTIONS=1"
-              ]
+              ],
+            "win_delay_load_hook": "true"
           }
         ]
       ],

@@ -15,7 +15,7 @@ Value carregarDLL(const CallbackInfo &info)
   if (info.Length() < 1)
     napi_throw_error(env, "0", "Informe o caminho da DLL.");
   else if (!info[0].IsString())
-    napi_throw_type_error(env, "1", "O caminho informado não é uma string válida.");
+    napi_throw_type_error(env, "1", "O caminho informado nao e uma string valida.");
   else
   {
     
@@ -25,7 +25,7 @@ Value carregarDLL(const CallbackInfo &info)
     #endif
 
     if (!handler)
-      napi_throw_type_error(env, "2", "Não foi possível carregar a Dll do Fernando.");
+      napi_throw_type_error(env, "2", "Nao foi possivel carregar a Dll do Fernando.");
     else
       return Boolean::New(env, true);
   }

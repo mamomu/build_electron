@@ -23,8 +23,6 @@ using std::string;
 #ifndef NODESITEF_H // include guard
 #define NODESITEF_H 1
 
-#include "promises/promiseWorker.cpp"
-
 typedef const char* (*ImpComprovante)(string);
 typedef const char* (*ConsultarSat)();
 typedef const char* (*VendaSat)(string);
