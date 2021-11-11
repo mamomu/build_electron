@@ -48,6 +48,7 @@
   "dependencies": {
     "bindings": "^1.5.0",
     "cors": "^2.8.5",
+    "custom-electron-titlebar": "^3.2.7",
     "express": "^4.17.1",
     "node-addon-api": "^4.2.0",
     "postcss": "^8.3.6",
