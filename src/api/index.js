@@ -1,25 +1,34 @@
-const app = require("express")();
+const appexp = require("express")();
 const SatTef = require("bindings")("./../../../build/Release/nodesat");
 const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const pedido = require("./../api/models/pedido");
-const produtos = require("./../api/models/produtos");
+const db = require('./config/db');
+const { app } = require ('electron');
 
-app.use(bodyParser.json());
-app.use(cors());
+appexp.use(bodyParser.json());
+appexp.use(cors());
 
-const dest = path.resolve(__dirname, "libmobly.dll");
-app.route("/consultaVenda/:CPF").get(pedido().get);
+let execPath;
+execPath = path.dirname (app.getPath ('exe'));
 
-app.route("/consultaProduto/:EAN").get(produtos().get);
-app.use("/", [
-  require("./../api/models/sangriaSuprimento"),
-  require("./../api/models/consultaSat"),
-]);
-app.listen(3333, () => {
-  SatTef.carregarDLL(dest);
+appexp.db = db;
+appexp.use('/', [
+  require('./models/configPdv'),
+  require('./models/alertaSangria'),
+  require('./models/aberturaCaixa'),
+  require('./models/encerramentoCaixa'),
+  require('./models/sangriaSuprimento'),
+  require('./models/consultaSat'),
+  require('./models/pedido'),
+  require('./models/produtos'),
+  require('./models/vendas'),
+  require('./models/suspenderVenda')
+]) 
+
+appexp.listen(3333, () => {
+  SatTef.carregarDLL(execPath+'\\libmobly.dll');
   console.log("Backend Executando...");
 });
 
-module.exports = app;
+module.exports = appexp;

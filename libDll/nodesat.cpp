@@ -25,7 +25,7 @@ Value carregarDLL(const CallbackInfo &info)
     #endif
 
     if (!handler)
-      napi_throw_type_error(env, "2", "Nao foi possivel carregar a Dll do Fernando.");
+      napi_throw_type_error(env, "2", "Nao foi possivel carregar a Dll.");
     else
       return Boolean::New(env, true);
   }
@@ -34,21 +34,21 @@ Value carregarDLL(const CallbackInfo &info)
 }
 
 
-const char* functionexample::consultarSat()
+const char* functionexample::consultarSat(string jsonDados)
 {
   if (!handler)
     throw("Carregue a DLL libMobly!");
 
   ConsultarSat consultar = (ConsultarSat)GetProcAddress(handler,"ConsultarSat");
 
-  return consultar();
+  return consultar(jsonDados);
 }
 
 
 
 Value functionexample::consultaSatWrapped(const CallbackInfo& info) {
     Env env = info.Env();
-    return String::New(env, functionexample::consultarSat());
+    return String::New(env, functionexample::consultarSat(info[0].As<Napi::String>().Utf8Value()));
 }
 
 const char* functionexample::impComprovante(string jsonDados)
@@ -66,6 +66,23 @@ const char* functionexample::impComprovante(string jsonDados)
 Value functionexample::impComprovanteWrapped(const CallbackInfo& info) {
     Env env = info.Env();
     return String::New(env, functionexample::impComprovante(info[0].As<Napi::String>().Utf8Value()));
+}
+
+const char* functionexample::impComprovanteEncerramento(int idTurno)
+{
+  if (!handler)
+    throw("Carregue a DLL libMobly!");
+
+  ImpComprovanteEncerramento impComp = (ImpComprovanteEncerramento)GetProcAddress(handler,"ImpComprovanteEncerramento");
+
+  printf("O id do turno eh: %d", idTurno);
+
+  return impComp(idTurno);
+}
+
+Value functionexample::impComprovanteEncerramentoWrapped(const CallbackInfo& info) {
+    Env env = info.Env();
+    return String::New(env, functionexample::impComprovanteEncerramento(info[0].As<Napi::Number>().Int32Value()));
 }
 
 const char* functionexample::vendaSat(string jsonVenda)
@@ -109,6 +126,7 @@ Object Init(Env env, Object exports)
   exports.Set("somaTotal", Function::New(env, functionexample::somaTotalWrapped));
   exports.Set("vendaSat", Function::New(env, functionexample::vendaSatWrapped));
   exports.Set("impComprovante", Function::New(env, functionexample::impComprovanteWrapped));
+  exports.Set("impComprovanteEncerramento", Function::New(env, functionexample::impComprovanteEncerramentoWrapped));
 
   return exports;
 }

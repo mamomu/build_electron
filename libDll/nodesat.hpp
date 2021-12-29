@@ -24,7 +24,8 @@ using std::string;
 #define NODESITEF_H 1
 
 typedef const char* (*ImpComprovante)(string);
-typedef const char* (*ConsultarSat)();
+typedef const char* (*ImpComprovanteEncerramento)(int);
+typedef const char* (*ConsultarSat)(string);
 typedef const char* (*VendaSat)(string);
 typedef int (*SomaTotalDll)(int, int);
 
@@ -34,7 +35,10 @@ namespace functionexample {
   const char* impComprovante(string jsonDados);
   Value impComprovanteWrapped(const CallbackInfo &info);
 
-  const char* consultarSat();
+  const char* impComprovanteEncerramento(int idTurno);
+  Value impComprovanteEncerramentoWrapped(const CallbackInfo &info);
+
+  const char* consultarSat(string jsonDados);
   Value consultaSatWrapped(const CallbackInfo &info);
 
   const char* vendaSat(string jsonVenda);

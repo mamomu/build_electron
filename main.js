@@ -1,7 +1,7 @@
 "use strict";
 
 // Import parts of electron to use
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, Menu, MenuItem } = require("electron");
 const path = require("path");
 const url = require("url");
 
@@ -33,17 +33,26 @@ if (process.platform === "win32") {
 
 function createWindow() {
   // Create the browser window.
+  const RESOURCES_PATH = app.isPackaged
+    ? path.join(process.resourcesPath, 'assets')
+    : path.join(__dirname, './assets');
+
+  const getAssetPath = (...paths) => {
+    return path.join(RESOURCES_PATH, ...paths);
+  };
+
   mainWindow = new BrowserWindow({
     width: 1024,
     height: 768,
     show: false,
-    titleBarStyle: "hidden", // add this line
+    icon: getAssetPath('icon.png'),
 
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
     },
   });
+
 
   // and load the index.html of the app.
   let indexPath;
@@ -65,8 +74,8 @@ function createWindow() {
 
   const server = require("./src/api/index");
 
-  mainWindow.loadURL("https://pdv-front.vercel.app/#/");
-
+  //mainWindow.loadURL("https://pdv-front.vercel.app/#/");
+  mainWindow.loadURL("http://localhost:3000/#/");
   // Don't show until we are ready and loaded
   mainWindow.once("ready-to-show", () => {
     mainWindow.maximize();
@@ -94,6 +103,34 @@ function createWindow() {
     mainWindow = null;
   });
 }
+
+const template = [
+  {
+    label: 'Integrações',
+    submenu: [
+      {
+        label: 'Site mobly',
+        click: () => { mainWindow.loadURL("http://www.mobly.com.br"); }
+      },
+      {
+        label: 'PDV mobly',
+        click: () => { mainWindow.loadURL("http://localhost:3000/#/"); }
+      },
+      {
+        label: 'PDV Sublimity',
+        click: () => { mainWindow.loadURL("https://plataforma.sublimity.com.br/index.php"); }
+      },
+    ]
+  },
+
+  {
+    label: 'Sair',
+    click: () => { 'close' },
+  }
+]
+
+const menu = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(menu)
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
